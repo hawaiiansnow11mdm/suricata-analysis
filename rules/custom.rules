@@ -1,0 +1,11 @@
+# 1. ICMP echo request (ping)
+alert icmp any any -> any any (msg:"SURICATA - ICMP Echo Request Detected"; itype:8; sid:1000001; rev:1;)
+
+# 2. HTTP file download via wget
+alert http any any -> any any (msg:"SURICATA - Possible malicious file download via wget"; content:"wget"; http_method; sid:1000002; rev:1;)
+
+# 3. Nmap SYN scan detection
+alert tcp any any -> any any (msg:"SURICATA - Nmap SYN Scan Detected"; flags:S; threshold:type threshold, track by_src, count 20, seconds 10; sid:1000003; rev:1;)
+
+# 4. SQL injection attempt
+alert http any any -> any any (msg:"SURICATA - SQL Injection Attempt"; content:"union select"; nocase; sid:1000004; rev:1;)
